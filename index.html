@@ -30,10 +30,19 @@
           serviceWorkerPath: "OneSignalSDKWorker.js",
           allowLocalhostAsSecureOrigin: true,
         });
+
+        // Prompt user to enable push notifications
+        try {
+          if (OneSignal.Slidedown && OneSignal.Slidedown.promptPush) {
+            await OneSignal.Slidedown.promptPush();
+          }
+        } catch (e) {
+          console.warn("OneSignal promptPush error:", e);
+        }
       });
     </script>
-    <script type="module" crossorigin src="./assets/index-C4t7XcUx.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DfR9La18.css">
+    <script type="module" crossorigin src="./assets/index-CrT3oMT5.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CKqspS1w.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
     <div id="root"></div>
