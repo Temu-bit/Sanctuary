@@ -2,15 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="192x192">
-    <meta name="theme-color" content="#0f0c29">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Sanctuary</title>
-    <script type="module" crossorigin src="./assets/index-5PxkCPIF.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DVZ6B1X6.css">
+    
+    <!-- PWA & Mobile Meta Tags -->
+    <meta name="theme-color" content="#0f0c29" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Sanctuary" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="./apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="./apple-touch-icon.png" />
+
+    <!-- OneSignal Web Push SDK -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
+          serviceWorkerParam: { scope: "./" },
+          serviceWorkerPath: "OneSignalSDKWorker.js",
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+    <script type="module" crossorigin src="./assets/index-C4t7XcUx.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DfR9La18.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
     <div id="root"></div>
