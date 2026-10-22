@@ -32,25 +32,25 @@
       OneSignalDeferred.push(async function(OneSignal) {
         const isSubdirectory = window.location.pathname.startsWith('/Sanctuary');
         const basePath = isSubdirectory ? '/Sanctuary/' : '/';
+        const swPath = isSubdirectory ? 'Sanctuary/sw.js' : 'sw.js';
 
         await OneSignal.init({
           appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
           path: basePath,
-          serviceWorkerPath: "sw.js",
+          serviceWorkerPath: swPath,
           serviceWorkerParam: { scope: basePath },
           allowLocalhostAsSecureOrigin: true,
         });
 
-        try {
-          if (OneSignal.Slidedown && OneSignal.Slidedown.promptPush) {
-            await OneSignal.Slidedown.promptPush();
+        OneSignal.User.PushSubscription.addEventListener("change", function(event) {
+          console.log("[OneSignal] Subscription changed:", event);
+          if (event.current && event.current.token) {
+            console.log("[OneSignal] APNs/VAPID token acquired:", event.current.token);
           }
-        } catch (e) {
-          console.warn("OneSignal promptPush error:", e);
-        }
+        });
       });
     </script>
-    <script type="module" crossorigin src="./assets/index-DekMwimH.js"></script>
+    <script type="module" crossorigin src="./assets/index-CjbkTfWP.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BJyhADjd.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
