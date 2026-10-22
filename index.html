@@ -30,24 +30,31 @@
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
-        const isSubdirectory = window.location.pathname.startsWith('/Sanctuary');
-        const basePath = isSubdirectory ? '/Sanctuary/' : '/';
-        const swPath = isSubdirectory ? 'Sanctuary/sw.js' : 'sw.js';
+        // GitHub Pages: site is at /Sanctuary/ — tell OneSignal where to find its worker
+        const isGHPages = window.location.pathname.startsWith('/Sanctuary');
+        const basePath = isGHPages ? '/Sanctuary/' : '/';
 
         await OneSignal.init({
           appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
-          path: basePath,
-          serviceWorkerPath: swPath,
+          // Use the dedicated OneSignal worker (not combined sw.js)
+          // This avoids iOS Safari issues with Workbox async module loading
+          serviceWorkerPath: "OneSignalSDKWorker.js",
           serviceWorkerParam: { scope: basePath },
           allowLocalhostAsSecureOrigin: true,
         });
 
-        OneSignal.User.PushSubscription.addEventListener("change", function(event) {
-          console.log("[OneSignal] Subscription changed:", event);
-          if (event.current && event.current.token) {
-            console.log("[OneSignal] APNs/VAPID token acquired:", event.current.token);
-          }
-        });
+        // Log subscription changes for debugging
+        try {
+          OneSignal.User.PushSubscription.addEventListener("change", function(event) {
+            console.log("[OneSignal] Subscription changed:", JSON.stringify({
+              id: event.current && event.current.id,
+              token: event.current && event.current.token ? "present" : "null",
+              optedIn: event.current && event.current.optedIn,
+            }));
+          });
+        } catch(e) {
+          console.warn("[OneSignal] Could not add subscription listener:", e);
+        }
       });
     </script>
     <script type="module" crossorigin src="./assets/index-DWNQrELi.js"></script>
