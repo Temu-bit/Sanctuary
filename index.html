@@ -31,14 +31,13 @@
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
         const isSubdirectory = window.location.pathname.startsWith('/Sanctuary');
-        const swPath = isSubdirectory ? 'Sanctuary/OneSignalSDKWorker.js' : 'OneSignalSDKWorker.js';
-        const swScope = isSubdirectory ? '/Sanctuary/' : '/';
+        const basePath = isSubdirectory ? '/Sanctuary/' : '/';
 
         await OneSignal.init({
           appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
-          path: isSubdirectory ? "/Sanctuary/" : "/",
-          serviceWorkerPath: isSubdirectory ? "Sanctuary/OneSignalSDKWorker.js" : "OneSignalSDKWorker.js",
-          serviceWorkerParam: { scope: swScope },
+          path: basePath,
+          serviceWorkerPath: "sw.js",
+          serviceWorkerParam: { scope: basePath },
           allowLocalhostAsSecureOrigin: true,
         });
 
