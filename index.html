@@ -38,7 +38,8 @@
           appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
           // Use the dedicated OneSignal worker (not combined sw.js)
           // This avoids iOS Safari issues with Workbox async module loading
-          serviceWorkerPath: "OneSignalSDKWorker.js",
+          serviceWorkerPath: isGHPages ? "Sanctuary/OneSignalSDKWorker.js" : "OneSignalSDKWorker.js",
+          serviceWorkerUpdaterPath: isGHPages ? "Sanctuary/OneSignalSDKUpdaterWorker.js" : "OneSignalSDKUpdaterWorker.js",
           serviceWorkerParam: { scope: basePath },
           allowLocalhostAsSecureOrigin: true,
         });
@@ -57,7 +58,7 @@
         }
       });
     </script>
-    <script type="module" crossorigin src="./assets/index-DWNQrELi.js"></script>
+    <script type="module" crossorigin src="./assets/index-BHKU0GHi.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BJyhADjd.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
