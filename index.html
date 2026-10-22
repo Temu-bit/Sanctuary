@@ -27,14 +27,17 @@
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
+        const isSubdirectory = window.location.pathname.startsWith('/Sanctuary');
+        const swPath = isSubdirectory ? 'Sanctuary/OneSignalSDKWorker.js' : 'OneSignalSDKWorker.js';
+        const swScope = isSubdirectory ? '/Sanctuary/' : '/';
+
         await OneSignal.init({
           appId: "c7325758-4905-4bff-8aa6-8c01feb6f215",
-          serviceWorkerParam: { scope: "./" },
-          serviceWorkerPath: "sw.js",
+          serviceWorkerPath: swPath,
+          serviceWorkerParam: { scope: swScope },
           allowLocalhostAsSecureOrigin: true,
         });
 
-        // Prompt user to enable push notifications
         try {
           if (OneSignal.Slidedown && OneSignal.Slidedown.promptPush) {
             await OneSignal.Slidedown.promptPush();
@@ -44,7 +47,7 @@
         }
       });
     </script>
-    <script type="module" crossorigin src="./assets/index-C7Pm27A_.js"></script>
+    <script type="module" crossorigin src="./assets/index-CLjrDdbj.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BJyhADjd.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
